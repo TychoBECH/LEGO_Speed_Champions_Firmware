@@ -32,9 +32,17 @@
 */
 #include "mcc_generated_files/system/system.h"
 
+//Define States used by the state machine
+#define state_idel 0
+#define state_drive 1
+
 /*
     Main application
 */
+
+uint8_t state = state_idel;
+
+uint8_t read_command(void);
 
 int main(void)
 {
@@ -58,19 +66,56 @@ int main(void)
 	IO_RA5_SetHigh();
 	
 	__delay_ms(50);
+	
+	uint8_t command = 0;
+	//Use WASD as drive command set 
+	//		W
+	//	    ¦
+	//  A -- -- D
+	//      ¦
+	//      S
 
+	
     while(1)
     {
-		/*IO_RB1_SetHigh();
-		IO_RC1_SetHigh();
-		IO_RA6_SetHigh();
-		IO_RA0_SetHigh();
-		*/
-		__delay_ms(500);
-		IO_RA0_SetLow();
-		IO_RA6_SetLow();
-		IO_RC1_SetLow();
-		IO_RB1_SetLow();
-		__delay_ms(500);
+		switch( state){
+			case state_idel:
+				IO_RA0_SetLow();
+				IO_RA6_SetLow();
+				IO_RC1_SetLow();
+				IO_RB1_SetLow();
+				if(command == 0x57){ //HEX value of "W"
+					state = state_drive;
+				}
+				break;
+			case state_drive:
+				IO_RB1_SetHigh();
+				IO_RC1_SetHigh();
+				IO_RA6_SetHigh();
+				IO_RA0_SetHigh();
+				if(command == 0x53){ //HEX value of "S"
+					state = state_idel;
+				}
+				break;
+			default:
+				
+				break;
+		}
+		NOP();
+		
+		//Read back command from UART
+		command = read_command();
+		
+		__delay_ms(1);
     }    
+}
+
+uint8_t read_command(void){
+	if(EUSART1_IsRxReady()){
+		uint8_t receaved = EUSART1_Read();
+		if (receaved > 32 ) {//Filter for actual Text insted of controll caracters
+			return receaved;
+		}
+	}
+	return 0;
 }
