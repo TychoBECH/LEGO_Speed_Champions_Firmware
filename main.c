@@ -34,7 +34,10 @@
 
 //Define States used by the state machine
 #define state_idel 0
-#define state_drive 1
+#define state_drive_forward 1
+#define state_turn_left 2
+#define state_turn_right 3
+#define state_drive_backward 4
 
 /*
     Main application
@@ -84,18 +87,65 @@ int main(void)
 				IO_RA6_SetLow();
 				IO_RC1_SetLow();
 				IO_RB1_SetLow();
+				IO_RA7_SetLow();
+				IO_RA1_SetLow();
+				IO_RC0_SetLow();
+				IO_RC7_SetLow();
+				
 				if(command == 0x57){ //HEX value of "W"
-					state = state_drive;
+					state = state_drive_forward;
+				}
+				if(command == 0x41){ //HEX value of "A"
+					state = state_turn_left;
+				}
+				if (command == 0x44) { //HEX value of "D"
+					state = state_turn_right;
+				}
+				if (command == 0x53) { //HEX value of "S"
+					state = state_drive_backward;
 				}
 				break;
-			case state_drive:
+			case state_drive_forward:
 				IO_RB1_SetHigh();
 				IO_RC1_SetHigh();
 				IO_RA6_SetHigh();
 				IO_RA0_SetHigh();
-				if(command == 0x53){ //HEX value of "S"
-					state = state_idel;
-				}
+				
+				__delay_ms(100);
+				state = state_idel;
+				break;
+			case state_turn_left:
+				//right forward M1 and M4
+				IO_RB1_SetHigh();
+				IO_RC1_SetHigh();
+				
+				//left backward M2 and M3
+				IO_RA7_SetHigh();
+				IO_RA1_SetHigh();
+				
+				__delay_ms(100);
+				state = state_idel;
+				break;
+			case state_turn_right:
+				//right backward M1 and M4
+				IO_RC7_SetHigh();
+				IO_RC0_SetHigh();
+				
+				//left forward M2 and M3
+				IO_RA6_SetHigh();
+				IO_RA0_SetHigh();
+				
+				__delay_ms(100);
+				state = state_idel;
+				break;
+			case state_drive_backward: 
+				IO_RC7_SetHigh();
+				IO_RC0_SetHigh();
+				IO_RA7_SetHigh();
+				IO_RA1_SetHigh();
+				
+				__delay_ms(100);
+				state = state_idel;
 				break;
 			default:
 				
