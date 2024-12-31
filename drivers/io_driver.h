@@ -20,7 +20,7 @@
  */
 
 /* 
- * File:   IO_driver.h
+ * File:   io_driver.h
  * Author: Tycho Kropf
  * Comments:
  * Revision history: 0.0.1

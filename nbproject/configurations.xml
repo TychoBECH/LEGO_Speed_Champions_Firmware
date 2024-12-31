@@ -5,7 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="Drivers" projectFiles="true">
-        <itemPath>drivers/IO_driver.h</itemPath>
+        <itemPath>drivers/io_driver.h</itemPath>
       </logicalFolder>
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"
