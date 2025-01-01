@@ -34,6 +34,41 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h>
 
+#define IO_RA0 0
+#define IO_RA1 1
+#define IO_RA2 2
+#define IO_RA3 3
+#define IO_RA4 4
+#define IO_RA5 5
+#define IO_RA6 6
+#define IO_RA7 7
+
+#define IO_RB0 8
+#define IO_RB1 9
+#define IO_RB2 10
+#define IO_RB3 11
+#define IO_RB4 12
+#define IO_RB5 13
+#define IO_RB6 14
+#define IO_RB7 15
+
+#define IO_RC0 16
+#define IO_RC1 17
+#define IO_RC2 18
+#define IO_RC3 19
+#define IO_RC4 20
+#define IO_RC5 21
+#define IO_RC6 22
+#define IO_RC7 23
+
+//IO_RD is not available on the selected MCU case
+
+#define IO_RE0 32
+#define IO_RE1 33
+#define IO_RE2 34
+#define IO_RE3 35
+
+
 /**
     <p><b>Function prototype:</b></p>
     void IO_Init(void);
