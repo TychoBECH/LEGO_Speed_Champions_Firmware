@@ -33,6 +33,7 @@
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h>
+#include <stdbool.h>
 
 #define IO_RA0 0
 #define IO_RA1 1

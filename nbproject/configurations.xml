@@ -6,22 +6,7 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="Drivers" projectFiles="true">
         <itemPath>drivers/io_driver.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="MCC Generated Files"
-                     displayName="MCC Generated Files"
-                     projectFiles="true">
-        <logicalFolder name="system" displayName="system" projectFiles="true">
-          <itemPath>mcc_generated_files/system/clock.h</itemPath>
-          <itemPath>mcc_generated_files/system/system.h</itemPath>
-          <itemPath>mcc_generated_files/system/pins.h</itemPath>
-          <itemPath>mcc_generated_files/system/config_bits.h</itemPath>
-          <itemPath>mcc_generated_files/system/interrupt.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="uart" displayName="uart" projectFiles="true">
-          <itemPath>mcc_generated_files/uart/uart_types.h</itemPath>
-          <itemPath>mcc_generated_files/uart/uart_drv_interface.h</itemPath>
-          <itemPath>mcc_generated_files/uart/eusart1.h</itemPath>
-        </logicalFolder>
+        <itemPath>drivers/system.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -39,24 +24,6 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="Drivers" projectFiles="true">
         <itemPath>drivers/io_driver.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="MCC Generated Files"
-                     displayName="MCC Generated Files"
-                     projectFiles="true">
-        <logicalFolder name="system" displayName="system" projectFiles="true">
-          <logicalFolder name="src" displayName="src" projectFiles="true">
-            <itemPath>mcc_generated_files/system/src/config_bits.c</itemPath>
-            <itemPath>mcc_generated_files/system/src/system.c</itemPath>
-            <itemPath>mcc_generated_files/system/src/interrupt.c</itemPath>
-            <itemPath>mcc_generated_files/system/src/pins.c</itemPath>
-            <itemPath>mcc_generated_files/system/src/clock.c</itemPath>
-          </logicalFolder>
-        </logicalFolder>
-        <logicalFolder name="uart" displayName="uart" projectFiles="true">
-          <logicalFolder name="src" displayName="src" projectFiles="true">
-            <itemPath>mcc_generated_files/uart/src/eusart1.c</itemPath>
-          </logicalFolder>
-        </logicalFolder>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
