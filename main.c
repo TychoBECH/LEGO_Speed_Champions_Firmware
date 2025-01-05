@@ -34,7 +34,7 @@
 
 int main(void) {
 
-	IO_Init();
+	System_Init();
 	while (1) {
 		IO_WritePin(IO_RA2, true);
 		__delay_ms(200);
