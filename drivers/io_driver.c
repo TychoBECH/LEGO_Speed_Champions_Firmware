@@ -18,9 +18,6 @@
  */
 
 #include "io_driver.h"
-#include <xc.h>
-#include <stdint.h>
-#include <stdbool.h>
 
 void IO_Init(void){
 	//Port A

@@ -1,0 +1,46 @@
+/* 
+ * File:   io_driver.c
+ * Author: Tycho Kropf
+ * Created on: 2024-12-31
+ *
+ * Description:
+ * TODO
+ *
+ * Revision History:
+ * TODO
+ * Version 0.0.1: 
+ *
+ */
+
+#include "mssp_driver.h"
+
+void MSSP1_SPI_Init(void) {
+	SSP1ADD = 0x01; // SCk clock periode: ((n+1)*4)/Fosc -> 4MHz with FOSC=32MHz
+	SSP1STAT = 0b01000000; //Set to use Mode 0 SCK idle low and sample on ring edge
+	SSP1CON1 = 0b00101010;
+	SSP1CON2 = 0b00000000;
+	SSP1CON3 = 0b00010000;
+}
+
+void MSSP1_DeInit(void) {
+	SSP1ADD = 0x00;
+	SSP1MSK = 0xFF;
+	SSP1STAT = 0x00;
+	SSP1CON1 = 0x00;
+	SSP1CON2 = 0x00;
+	SSP1CON3 = 0x00;
+}
+
+void MSSP1_SPI_WriteByte(uint8_t data) {
+	SSP1BUF = data;
+	while (!SSP1IF);
+	SSP1IF = 0;
+}
+
+uint8_t MSSP1_SPI_TransferByte(uint8_t data) {
+	SSP1BUF = data;
+	while (!SSP1IF);
+	SSP1IF = 0;
+	return SSP1BUF;
+}
+
