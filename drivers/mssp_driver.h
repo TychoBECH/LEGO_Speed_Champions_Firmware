@@ -145,6 +145,76 @@ void MSSP1_SPI_WriteByte(uint8_t data);
  */
 uint8_t MSSP1_SPI_TransferByte(uint8_t data);
 
+/**
+    <p><b>Function prototype:</b></p>
+    void MSSP1_SPI_Start(void);
+
+    <p><b>Summary:</b></p>
+    Initializes and starts the MSSP1 SPI communication.
+
+    <p><b>Description:</b></p>
+    Configures and enables the SPI module (Master Synchronous Serial Port 1) for data transfer. This function prepares the SPI peripheral to initiate communication with SPI slave devices by setting the required settings such as clock polarity, phase, and enabling the SPI module.
+
+    <p><b>Precondition:</b></p>
+    The necessary SPI configurations, such as clock settings and slave device configurations, should be done prior to calling this function.
+
+    <p><b>Parameters:</b></p>
+    <ul>
+        <li>None - This function takes no parameters.</li>
+    </ul>
+
+    <p><b>Returns:</b></p>
+    None.
+
+    <p><b>Example:</b></p>
+    <code>
+    MSSP1_SPI_Start(); // Start the SPI communication on MSSP1
+    </code>
+
+    <p><b>Remarks:</b></p>
+    <ul>
+        <li>This function must be called before any SPI transfers can be made.</li>
+        <li>Ensure proper configuration of SPI mode (clock polarity and phase) before starting the communication.</li>
+        <li>The function will enable the SPI module and prepare the bus for data transmission.</li>
+    </ul>
+ */
+void MSSP1_SPI_Start(void);
+
+/**
+    <p><b>Function prototype:</b></p>
+    void MSSP1_SPI_Stop(void);
+
+    <p><b>Summary:</b></p>
+    Disables and stops the MSSP1 SPI communication.
+
+    <p><b>Description:</b></p>
+    Disables the SPI module and disables the SPI interface, effectively stopping communication over the SPI bus. This function ensures the proper shutdown of the SPI module by disabling the necessary control bits and freeing up the bus for other uses.
+
+    <p><b>Precondition:</b></p>
+    The SPI communication must have been started with the `MSSP1_SPI_Start()` function before calling this function.
+
+    <p><b>Parameters:</b></p>
+    <ul>
+        <li>None - This function takes no parameters.</li>
+    </ul>
+
+    <p><b>Returns:</b></p>
+    None.
+
+    <p><b>Example:</b></p>
+    <code>
+    MSSP1_SPI_Stop(); // Stop the SPI communication on MSSP1
+    </code>
+
+    <p><b>Remarks:</b></p>
+    <ul>
+        <li>This function should be used to stop communication after the necessary data transfers are completed.</li>
+        <li>After stopping the SPI, the bus is no longer active, and the device can be reconfigured or used for other purposes.</li>
+        <li>Make sure no ongoing SPI transfers are happening before calling this function to avoid errors.</li>
+    </ul>
+ */
+void MSSP1_SPI_Stop(void);
+
 
 #ifdef	__cplusplus
 extern "C" {

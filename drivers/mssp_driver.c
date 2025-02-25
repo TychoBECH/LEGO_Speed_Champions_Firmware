@@ -20,6 +20,9 @@ void MSSP1_SPI_Init(void) {
 	SSP1CON1 = 0b00101010;
 	SSP1CON2 = 0b00000000;
 	SSP1CON3 = 0b00010000;
+	
+	//Set CS IO high for idle high
+	IO_WritePin(CS_Pin,true);
 }
 
 void MSSP1_DeInit(void) {
@@ -42,5 +45,13 @@ uint8_t MSSP1_SPI_TransferByte(uint8_t data) {
 	while (!SSP1IF);
 	SSP1IF = 0;
 	return SSP1BUF;
+}
+
+void MSSP1_SPI_Start(void){
+	IO_WritePin(CS_Pin,false);
+}
+
+void MSSP1_SPI_STOP(void){
+	IO_WritePin(CS_Pin,true);
 }
 
