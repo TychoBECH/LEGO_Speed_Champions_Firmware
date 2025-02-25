@@ -31,12 +31,17 @@
 	THIS SOFTWARE.
  */
 #include "drivers/system.h"
+uint8_t value;
 
 int main(void) {
 
 	System_Init();
+	IO_WritePin(CS_Pin, true);
+	__delay_us(100);
 	while (1) {
-		IO_WritePin(IO_RA2, true);
-		__delay_ms(200);
+		IO_WritePin(CS_Pin, false);
+		value = MSSP1_SPI_TransferByte(0x3D);
+		IO_WritePin(CS_Pin, true);
+		__delay_ms(10);
 	}
 }

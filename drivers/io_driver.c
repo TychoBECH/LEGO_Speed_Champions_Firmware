@@ -44,7 +44,7 @@ void IO_Init(void){
 	//Port C
 	LATC = 0x00; //-> Output latch register
 	TRISC = 0b00011100; //Tristate register 1 = input
-	ANSELC = 0xFF; //Analog select register 1 = Analog input
+	ANSELC = 0x00; //Analog select register 1 = Analog input
 	WPUC = 0x00; //Wak pull up register 0 = disabled
 	INLVLC = 0xFF; //input level setting 1 = standard levels are used
 	SLRCONC = 0xFF; //Slew rate controll  1 = slew rate is limited

@@ -29,10 +29,11 @@ void PPS_Init(void) {
 
 	//Pins for SPI
 	//CLK -> RC5, DO -> RC6, Di -> RC4, SS -> RC1
-	RC5PPS = 0x15;
-	RC6PPS = 0x16;
-	SSP1DATPPS = 0b010100;
-	SSP1SSPPS = 0b010001;
+	RC5PPS = 0x15; //0x15 -> SCL1/SCK1
+	SSP1CLKPPS = 0b010101;
+	RC6PPS = 0x16; //0x16 -> SDA1/SDO1
+	SSP1DATPPS = 0b010100; //0b010000-> PORTC, 0b100 pin Nr4 -> RC4
+	SSP1SSPPS = 0b010001; // Same explalnation as above ie: RC1
 
 	//Pins for i2c
 	//SCL -> RB1, SDA -> RB3;
