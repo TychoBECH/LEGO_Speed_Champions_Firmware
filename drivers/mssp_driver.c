@@ -20,9 +20,9 @@ void MSSP1_SPI_Init(void) {
 	SSP1CON1 = 0b00101010;
 	SSP1CON2 = 0b00000000;
 	SSP1CON3 = 0b00010000;
-	
+
 	//Set CS IO high for idle high
-	IO_WritePin(CS_Pin,true);
+	IO_WritePin(CS_Pin, true);
 }
 
 void MSSP1_DeInit(void) {
@@ -40,6 +40,14 @@ void MSSP1_SPI_WriteByte(uint8_t data) {
 	SSP1IF = 0;
 }
 
+void MSSP1_SPI_WriteNByte(uint8_t *data_array, uint8_t size) {
+	for (uint8_t count = 0; count++; count <= size) {
+		SSP1BUF = data_array[count];
+		while (!SSP1IF);
+		SSP1IF = 0;
+	}
+}
+
 uint8_t MSSP1_SPI_TransferByte(uint8_t data) {
 	SSP1BUF = data;
 	while (!SSP1IF);
@@ -47,11 +55,20 @@ uint8_t MSSP1_SPI_TransferByte(uint8_t data) {
 	return SSP1BUF;
 }
 
-void MSSP1_SPI_Start(void){
-	IO_WritePin(CS_Pin,false);
+uint8_t MSSP1_SPI_TransferNByte(uint8_t *buffer, uint8_t size) {
+	for (uint8_t count = 0; count++; count <= size) {
+		SSP1BUF = buffer[count];
+		while (!SSP1IF);
+		SSP1IF = 0;
+		buffer[count] = SSP1BUF;
+	}
 }
 
-void MSSP1_SPI_STOP(void){
-	IO_WritePin(CS_Pin,true);
+void MSSP1_SPI_Start(void) {
+	IO_WritePin(CS_Pin, false);
+}
+
+void MSSP1_SPI_STOP(void) {
+	IO_WritePin(CS_Pin, true);
 }
 

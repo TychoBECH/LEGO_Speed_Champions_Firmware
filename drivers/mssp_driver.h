@@ -102,6 +102,8 @@ void MSSP1_DeInit(void);
  */
 void MSSP1_SPI_WriteByte(uint8_t data);
 
+void MSSP1_SPI_WriteNByte(uint8_t *data_array, uint8_t size);
+
 /**
  * <p><b>Function prototype:</b></p>
  * uint8_t MSSP1_SPI_TransferByte(uint8_t data);
@@ -144,6 +146,8 @@ void MSSP1_SPI_WriteByte(uint8_t data);
  * </ul>
  */
 uint8_t MSSP1_SPI_TransferByte(uint8_t data);
+
+uint8_t MSSP1_SPI_TransferNByte(uint8_t *buffer,  uint8_t size);
 
 /**
     <p><b>Function prototype:</b></p>
