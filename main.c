@@ -31,17 +31,15 @@
 	THIS SOFTWARE.
  */
 #include "drivers/system.h"
+#include "drivers/CC2500_driver.h"
 uint8_t value;
 
 int main(void) {
 
 	System_Init();
-	IO_WritePin(CS_Pin, true);
+	CC2500_init();
 	__delay_us(100);
 	while (1) {
-		IO_WritePin(CS_Pin, false);
-		value = MSSP1_SPI_TransferByte(0x3D);
-		IO_WritePin(CS_Pin, true);
-		__delay_ms(10);
+
 	}
 }

@@ -15,6 +15,7 @@
 #include "io_driver.h"
 #include "pps_driver.h"
 #include "mssp_driver.h"
+#include "CC2500_driver.h"
 
 void System_Init(void) {
 	IO_Init();
