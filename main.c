@@ -40,6 +40,6 @@ int main(void) {
 	CC2500_init();
 	__delay_us(100);
 	while (1) {
-
+		__delay_us(100);
 	}
 }

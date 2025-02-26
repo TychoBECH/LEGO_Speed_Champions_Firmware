@@ -34,7 +34,31 @@ void CC2500_init(void){
 
 void CC2500_WriteRegister(uint8_t reg, uint8_t value){
 	MSSP1_SPI_Start();
-	MSSP1_SPI_WriteByte(reg & CC2500_SingleWrite);
+	MSSP1_SPI_WriteByte(reg | CC2500_SingleWrite);
 	MSSP1_SPI_WriteByte(value);
 	MSSP1_SPI_Stop();
+}
+
+uint8_t CC2500_GetState(void){
+	MSSP1_SPI_Start();
+	uint8_t state =  MSSP1_SPI_TransferByte(CC2500_SingleRead);
+	MSSP1_SPI_Stop();
+	state = (state>>4) & 0x07;// Move bits 6:4 to 3:0 and mask them -> These are the state of the chip
+	return state;
+}
+
+uint8_t CC2500_GetRxFifoSpace(void){
+	MSSP1_SPI_Start();
+	uint8_t space =  MSSP1_SPI_TransferByte(CC2500_SingleRead);
+	MSSP1_SPI_Stop();
+	space = space & 0x07;
+	return space;
+}
+
+uint8_t CC2500_GetTxFifoSpace(void){
+	MSSP1_SPI_Start();
+	uint8_t space =  MSSP1_SPI_TransferByte(CC2500_SingleWrite);
+	MSSP1_SPI_Stop();
+	space = space & 0x07;
+	return space;
 }

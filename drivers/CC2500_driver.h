@@ -104,34 +104,148 @@
 #define CC2500_BurstRead    0xC0
 //</editor-fold>
 
-// Comment a function and leverage automatic documentation with slash star star
 /**
     <p><b>Function prototype:</b></p>
-  
+    void CC2500_init(void);
+
     <p><b>Summary:</b></p>
+    Initializes the CC2500 transceiver with default settings.
 
     <p><b>Description:</b></p>
+    Configures the CC2500 registers to set up transmission, reception, and frequency settings.
 
     <p><b>Precondition:</b></p>
+    - SPI must be initialized before calling this function.
 
     <p><b>Parameters:</b></p>
+    None
 
     <p><b>Returns:</b></p>
-
-    <p><b>Example:</b></p>
-    <code>
- 
-    </code>
-
-    <p><b>Remarks:</b></p>
+    None
  */
 void CC2500_init(void);
 
+/**
+    <p><b>Function prototype:</b></p>
+    void CC2500_WriteRegister(uint8_t reg, uint8_t value);
+
+    <p><b>Summary:</b></p>
+    Writes a value to a CC2500 register via SPI.
+
+    <p><b>Precondition:</b></p>
+    - SPI must be initialized before calling this function.
+
+    <p><b>Parameters:</b></p>
+    - reg: Register address
+    - value: Value to write
+
+    <p><b>Returns:</b></p>
+    None
+ */
 void CC2500_WriteRegister(uint8_t reg, uint8_t value);
 
 uint8_t CC2500_ReadRegister(uint8_t reg);
 
 uint8_t CC2500_TransferRegister(uint8_t reg, uint8_t value);
+
+/**
+    <p><b>Function prototype:</b></p>
+    uint8_t CC2500_GetState(void);
+  
+    <p><b>Summary:</b></p>
+    Retrieves the current state of the CC2500 transceiver.
+
+    <p><b>Description:</b></p>
+    This function communicates with the CC2500 transceiver via SPI to obtain its current state.
+    The state is extracted from bits 6:4 of the response and masked to retain only the relevant bits.
+
+    <p><b>Precondition:</b></p>
+    - The SPI interface must be properly initialized before calling this function.
+    
+    <p><b>Parameters:</b></p>
+    None
+
+    <p><b>Returns:</b></p>
+    A 3-bit value representing the current state of the CC2500 transceiver.
+
+    <p><b>Example:</b></p>
+    <code>
+    uint8_t state = CC2500_GetState();
+    if (state == 0x01) {
+        // Handle RX mode
+    }
+    </code>
+
+    <p><b>Remarks:</b></p>
+    - The returned value should be interpreted according to the CC2500 state definitions.
+ */
+uint8_t CC2500_GetState(void);
+
+/**
+    <p><b>Function prototype:</b></p>
+    uint8_t CC2500_GetRxFifoSpace(void);
+  
+    <p><b>Summary:</b></p>
+    Retrieves the available space in the RX FIFO of the CC2500 transceiver.
+
+    <p><b>Description:</b></p>
+    This function reads a status byte from the CC2500 via SPI and extracts the lowest 3 bits,
+    which indicate the available space in the RX FIFO buffer.
+
+    <p><b>Precondition:</b></p>
+    - The SPI interface must be properly initialized before calling this function.
+    
+    <p><b>Parameters:</b></p>
+    None
+
+    <p><b>Returns:</b></p>
+    A 3-bit value representing the available RX FIFO space.
+
+    <p><b>Example:</b></p>
+    <code>
+    uint8_t rxSpace = CC2500_GetRxFifoSpace();
+    if (rxSpace > 0) {
+        // Ready to receive data
+    }
+    </code>
+
+    <p><b>Remarks:</b></p>
+    - The returned value should be interpreted based on the FIFO depth of the CC2500.
+ */
+uint8_t CC2500_GetRxFifoSpace(void);
+
+/**
+    <p><b>Function prototype:</b></p>
+    uint8_t CC2500_GetTxFifoSpace(void);
+  
+    <p><b>Summary:</b></p>
+    Retrieves the available space in the TX FIFO of the CC2500 transceiver.
+
+    <p><b>Description:</b></p>
+    This function reads a status byte from the CC2500 via SPI and extracts the lowest 3 bits,
+    which indicate the available space in the TX FIFO buffer.
+
+    <p><b>Precondition:</b></p>
+    - The SPI interface must be properly initialized before calling this function.
+    
+    <p><b>Parameters:</b></p>
+    None
+
+    <p><b>Returns:</b></p>
+    A 3-bit value representing the available TX FIFO space.
+
+    <p><b>Example:</b></p>
+    <code>
+    uint8_t txSpace = CC2500_GetTxFifoSpace();
+    if (txSpace > 0) {
+        // Ready to transmit data
+    }
+    </code>
+
+    <p><b>Remarks:</b></p>
+    - Ensure that there is enough space in the TX FIFO before sending data.
+ */
+uint8_t CC2500_GetTxFifoSpace(void);
 
 #ifdef	__cplusplus
 extern "C" {
