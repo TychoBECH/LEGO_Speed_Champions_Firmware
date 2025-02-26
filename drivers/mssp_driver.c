@@ -41,7 +41,7 @@ void MSSP1_SPI_WriteByte(uint8_t data) {
 }
 
 void MSSP1_SPI_WriteNByte(uint8_t *data_array, uint8_t size) {
-	for (uint8_t count = 0; count++; count <= size) {
+	for (uint8_t count = 0; count <= size; count++) {
 		SSP1BUF = data_array[count];
 		while (!SSP1IF);
 		SSP1IF = 0;
@@ -55,8 +55,8 @@ uint8_t MSSP1_SPI_TransferByte(uint8_t data) {
 	return SSP1BUF;
 }
 
-uint8_t MSSP1_SPI_TransferNByte(uint8_t *buffer, uint8_t size) {
-	for (uint8_t count = 0; count++; count <= size) {
+void MSSP1_SPI_TransferNByte(uint8_t *buffer, uint8_t size) {
+	for (uint8_t count = 0; count <= size; count++) {
 		SSP1BUF = buffer[count];
 		while (!SSP1IF);
 		SSP1IF = 0;
@@ -68,7 +68,7 @@ void MSSP1_SPI_Start(void) {
 	IO_WritePin(CS_Pin, false);
 }
 
-void MSSP1_SPI_STOP(void) {
+void MSSP1_SPI_Stop(void) {
 	IO_WritePin(CS_Pin, true);
 }
 
