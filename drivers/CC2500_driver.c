@@ -62,3 +62,9 @@ uint8_t CC2500_GetTxFifoSpace(void){
 	space = space & 0x07;
 	return space;
 }
+
+void CC2500_SetMode(CC2500_Command_t mode){
+	MSSP1_SPI_Start();
+	MSSP1_SPI_WriteByte(mode);
+	MSSP1_SPI_Stop();
+}

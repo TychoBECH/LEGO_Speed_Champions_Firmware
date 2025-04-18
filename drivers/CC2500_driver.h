@@ -32,6 +32,7 @@
 #define	CC2500_DRIVER_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
+#include <stdint.h>
 
 #include "mssp_driver.h"
 // TODO Insert appropriate #include <>
@@ -47,19 +48,22 @@
 #define CC2500_STATE_TXFIFO_UNDERFLOW	0b110
 
 //Command Strobe for:
-#define CC2500_Command_SRES     0x30    //Softreset
-#define CC2500_Command_SFSTXON  0x31    //enable calibration when changing state
-#define CC2500_Command_SXOFF	0x32	//Turn off crystal
-#define	CC2500_Command_SCAL		0x33	//Calibrate synthesizer
-#define	CC2500_Command_SRX		0x34	//enter RX mode
-#define	CC2500_Command_STX		0x35	//enter TX mode
-#define	CC2500_Command_SIDLE	0x36	//enter IDLE mode
-#define	CC2500_Command_SWOR		0x38	//Start Wake on Radio mode
-#define	CC2500_Command_SPWD		0x39	//Enter Power down mode
-#define	CC2500_Command_SFRX		0x3A	//Flush RX FIFO -> Only in Idle or overflow state
-#define	CC2500_Command_SFTX		0x3B	//Flush TX FIFO -> Only in Idle or underflow state
-#define	CC2500_Command_SWORRST	0x3C	//Reset RTC
-#define	CC2500_Command_SNOP		0x3D	//Do Nothing -> Use to read chip status byte
+
+typedef enum {
+	CC2500_Command_SRES = 0x30, //Softreset
+	CC2500_Command_SFSTXON = 0x31, //enable calibration when changing state
+	CC2500_Command_SXOFF = 0x32, //Turn off crystal
+	CC2500_Command_SCAL = 0x33, //Calibrate synthesizer
+	CC2500_Command_SRX = 0x34, //enter RX mode
+	CC2500_Command_STX = 0x35, //enter TX mode
+	CC2500_Command_SIDLE = 0x36, //enter IDLE mode
+	CC2500_Command_SWOR = 0x38, //Start Wake on Radio mode
+	CC2500_Command_SPWD = 0x39, //Enter Power down mode
+	CC2500_Command_SFRX = 0x3A, //Flush RX FIFO -> Only in Idle or overflow state
+	CC2500_Command_SFTX = 0x3B, //Flush TX FIFO -> Only in Idle or underflow state
+	CC2500_Command_SWORRST = 0x3C, //Reset RTC
+	CC2500_Command_SNOP = 0x3D //Do Nothing -> Use to read chip status byte
+} CC2500_Command_t;
 //</editor-fold>
 
 //<editor-fold desc="CC2500 Register Definitions">
@@ -291,7 +295,7 @@ uint8_t CC2500_GetTxFifoSpace(void);
 	<p><b>Remarks:</b></p>
 	- Ensure that the mode value provided is supported by the CC2500.
  */
-void CC2500_SetMode(uint8_t mode);
+void CC2500_SetMode(CC2500_Command_t mode);
 
 #ifdef	__cplusplus
 extern "C" {
